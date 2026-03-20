@@ -20,17 +20,15 @@ h1 {
     text-shadow: 4px 4px 10px rgba(0,0,0,0.4);
 }
 
-/* ⚡ TROVÕES */
+/* ⚡ TROVÕES ANIMADOS */
 .trovao {
     font-size: 80px;
     display: inline-block;
     animation: piscarTrovao 1.5s infinite;
 }
-
 .trovao:last-child {
     animation-delay: 0.7s;
 }
-
 @keyframes piscarTrovao {
     0%   { transform: scale(1); opacity: 1; }
     50%  { transform: scale(1.2); opacity: 0.7; }
@@ -57,25 +55,22 @@ h1 {
     cursor: pointer;
     transition: 0.2s;
 }
-
 .level-btn:hover {
     transform: scale(1.08);
     background: #ff4d00;
 }
 
-/* 🖼️ IMAGEM DO MENU */
+/* IMAGEM DO MENU */
 #menu-image {
     margin-top: 30px;
 }
-
 #menu-image img {
-    width: 270px;
+    width: 300px;
     max-width: 80%;
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     animation: flutuar 2.5s ease-in-out infinite;
 }
-
 @keyframes flutuar {
     0% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -155,7 +150,6 @@ button {
     font-size: 35px;
     animation: floatUp 1s ease-out forwards;
 }
-
 @keyframes floatUp {
     0% { opacity: 1; transform: translateY(0) scale(1); }
     100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
@@ -164,7 +158,6 @@ button {
 #character { font-size: 60px; margin-top: 15px; }
 #medal { font-size: 70px; margin-top: 20px; }
 #footer { margin-top: 10px; font-size: 20px; }
-
 </style>
 </head>
 
@@ -183,7 +176,6 @@ button {
     <button class="level-btn" onclick="startGame(2)">Nível 2: 20 a 50</button>
     <button class="level-btn" onclick="startGame(3)">Nível 3: 50 a 100</button>
 
-    <!-- 🖼️ IMAGEM -->
     <div id="menu-image">
         <img src="menino.png" alt="Menino divertido">
     </div>
@@ -206,7 +198,7 @@ button {
     <div id="medal"></div>
 </div>
 
-<div id="footer">mario_menezes2009@edu.madeira.gov.pt</div>
+<div id="footer">EMAIL:mario_menezes2009@edu.madeira.gov.pt</div>
 
 <script>
 let num1, num2, correctAnswer;
@@ -255,16 +247,14 @@ function newQuestion() {
     if(level === 2) { min = 20; max = 50; }
     if(level === 3) { min = 50; max = 100; }
 
-    if(Math.random() > 0.5) {
-        do {
-            num1 = Math.floor(Math.random() * (max - min + 1)) + min;
-            num2 = Math.floor(Math.random() * (max - min + 1)) + min;
-        } while (num1 + num2 > max);
-
-        correctAnswer = num1 + num2;
+    if(Math.random() > 0.5) { // adição
+        // Gera resultado aleatório entre 50 e 100
+        correctAnswer = Math.floor(Math.random() * (max - min + 1)) + min;
+        // Gera num1 aleatório entre min e resultado-1
+        num1 = Math.floor(Math.random() * (correctAnswer - min + 1)) + min;
+        num2 = correctAnswer - num1;
         question.innerText = `${num1} + ${num2}`;
-
-    } else {
+    } else { // subtração
         num1 = Math.floor(Math.random() * (max - min + 1)) + min;
         num2 = Math.floor(Math.random() * (num1 - min + 1)) + min;
         correctAnswer = num1 - num2;
